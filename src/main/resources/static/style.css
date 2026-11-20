@@ -1,0 +1,312 @@
+/* Tema Padrão: Dark Tech Minimalista com Lilás/Roxo Neon */
+:root {
+    --bg: #09090b;
+    --surface: #121217;
+    --surface-hover: #1a1a22;
+    --border: rgba(168, 85, 247, 0.22);
+    --text: #f4f4f5;
+    --text-muted: #a1a1aa;
+    --neon: #a855f7;
+    --neon-bright: #c084fc;
+    --neon-glow: 0 0 14px rgba(168, 85, 247, 0.45);
+    --input-bg: #0c0c10;
+}
+
+/* Modo Claro Minimalista */
+[data-theme="light"] {
+    --bg: #f8f7fc;
+    --surface: #ffffff;
+    --surface-hover: #f3effc;
+    --border: #e4d9fa;
+    --text: #18181b;
+    --text-muted: #52525b;
+    --neon: #7c3aed;
+    --neon-bright: #6d28d9;
+    --neon-glow: 0 4px 12px rgba(124, 58, 237, 0.22);
+    --input-bg: #faf9fd;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.25s ease, color 0.25s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+header {
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--neon-bright);
+    box-shadow: var(--neon-glow);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+#user-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+main {
+    max-width: 980px;
+    margin: 2.5rem auto;
+    padding: 0 1.25rem;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s ease;
+}
+
+.card:hover {
+    border-color: rgba(192, 132, 252, 0.45);
+}
+
+.card h2, .card h3 {
+    margin-top: 0;
+    margin-bottom: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.login-card {
+    max-width: 380px;
+    margin: 4rem auto;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.08);
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.login-card label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.form-grid input,
+.form-grid select {
+    flex: 1;
+    min-width: 160px;
+}
+
+input, select {
+    padding: 0.7rem 0.85rem;
+    background-color: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: var(--neon-bright);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.18);
+}
+
+button {
+    background-color: var(--neon);
+    color: #ffffff;
+    border: none;
+    padding: 0.7rem 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--neon-bright);
+    box-shadow: var(--neon-glow);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.9rem;
+}
+
+.btn-outline:hover {
+    background: var(--surface-hover);
+    border-color: var(--neon-bright);
+    color: var(--neon-bright);
+    box-shadow: none;
+}
+
+.btn-icon {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.65rem;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.btn-icon:hover {
+    background: var(--surface-hover);
+    border-color: var(--neon-bright);
+    box-shadow: none;
+}
+
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+}
+
+.tab {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+}
+
+.tab:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+    box-shadow: none;
+}
+
+.tab.active {
+    background: rgba(168, 85, 247, 0.14);
+    color: var(--neon-bright);
+    border-color: var(--neon);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.85rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: var(--surface-hover);
+}
+
+.badge {
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-ok {
+    background: rgba(34, 197, 94, 0.14);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-warn {
+    background: rgba(245, 158, 11, 0.14);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-err {
+    background: rgba(239, 68, 68, 0.14);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+[data-theme="light"] .badge-ok { color: #15803d; }
+[data-theme="light"] .badge-warn { color: #b45309; }
+[data-theme="light"] .badge-err { color: #b91c1c; }
+
+.alerta {
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.alerta-erro {
+    background: rgba(239, 68, 68, 0.14);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.alerta-sucesso {
+    background: rgba(34, 197, 94, 0.14);
+    color: #86efac;
+    border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+[data-theme="light"] .alerta-erro { color: #991b1b; }
+[data-theme="light"] .alerta-sucesso { color: #166534; }
+
+.hidden {
+    display: none !important;
+}

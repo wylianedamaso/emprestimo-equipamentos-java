@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empréstimo de Equipamentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div class="brand">
+        <span class="brand-dot"></span>
+        <h1>Empréstimo de Equipamentos</h1>
+    </div>
+    <div class="header-actions">
+        <button id="btn-tema" class="btn-icon" title="Alternar tema">☀️</button>
+        <div id="user-bar" class="hidden">
+            <span id="user-info"></span>
+            <button id="btn-logout" class="btn-outline">Sair</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div id="alerta" class="alerta hidden"></div>
+
+    <!-- Tela de Login -->
+    <section id="login-section" class="card login-card">
+        <h2>Entrar no Sistema</h2>
+        <form id="form-login">
+            <label for="usuario">Usuário</label>
+            <input type="text" id="usuario" placeholder="admin ou colaborador" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </section>
+
+    <!-- Painel Principal -->
+    <section id="app-section" class="hidden">
+        <nav class="tabs">
+            <button class="tab active" data-tab="equipamentos">Equipamentos</button>
+            <button class="tab" data-tab="colaboradores">Colaboradores</button>
+            <button class="tab" data-tab="emprestimos">Empréstimos</button>
+        </nav>
+
+        <!-- Aba Equipamentos -->
+        <div id="tab-equipamentos" class="tab-content">
+            <div class="card">
+                <h3>Cadastrar Equipamento</h3>
+                <form id="form-equipamento" class="form-grid">
+                    <input type="text" id="eq-patrimonio" placeholder="Patrimônio (ex: NB-001)" required>
+                    <input type="text" id="eq-nome" placeholder="Nome (ex: Notebook Dell)" required>
+                    <select id="eq-tipo" required>
+                        <option value="NOTEBOOK">Notebook</option>
+                        <option value="MONITOR">Monitor</option>
+                        <option value="MOUSE">Mouse</option>
+                        <option value="TECLADO">Teclado</option>
+                        <option value="HEADSET">Headset</option>
+                    </select>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Lista de Equipamentos</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patrimônio</th>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="lista-equipamentos"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Aba Colaboradores -->
+        <div id="tab-colaboradores" class="tab-content hidden">
+            <div class="card">
+                <h3>Cadastrar Colaborador</h3>
+                <form id="form-colaborador" class="form-grid">
+                    <input type="text" id="col-nome" placeholder="Nome completo" required>
+                    <input type="email" id="col-email" placeholder="E-mail" required>
+                    <input type="text" id="col-cargo" placeholder="Cargo">
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Lista de Colaboradores</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Cargo</th>
+                    </tr>
+                    </thead>
+                    <tbody id="lista-colaboradores"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Aba Empréstimos -->
+        <div id="tab-emprestimos" class="tab-content hidden">
+            <div class="card">
+                <h3>Novo Empréstimo</h3>
+                <form id="form-emprestimo" class="form-grid">
+                    <input type="number" id="emp-equipamento-id" placeholder="ID do Equipamento" required>
+                    <input type="number" id="emp-colaborador-id" placeholder="ID do Colaborador" required>
+                    <button type="submit">Emprestar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Lista de Empréstimos</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Equipamento</th>
+                        <th>Colaborador</th>
+                        <th>Empréstimo</th>
+                        <th>Prazo</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody id="lista-emprestimos"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
