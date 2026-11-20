@@ -14,11 +14,13 @@ public class Emprestimo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long equipamentoId;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Equipamento equipamento;
 
-    @Column(nullable = false)
-    private Long colaboradorId;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Colaborador colaborador;
 
     @Column(nullable = false)
     private LocalDate dataEmprestimo;
@@ -26,33 +28,30 @@ public class Emprestimo {
     @Column(nullable = false)
     private LocalDate dataPrevistaDevolucao;
 
-    private LocalDate dataDevolucao; //null até retornar
+    private LocalDate dataDevolucao;
 
-    public Emprestimo(){
-
+    public Emprestimo() {
     }
 
-    public Emprestimo(Long equipamentoId, Long colaboradorId, LocalDate hoje){
-        this.equipamentoId = equipamentoId;
-        this.colaboradorId = colaboradorId;
+    public Emprestimo(Equipamento equipamento, Colaborador colaborador, LocalDate hoje) {
+        this.equipamento = equipamento;
+        this.colaborador = colaborador;
         this.dataEmprestimo = hoje;
         this.dataPrevistaDevolucao = hoje.plusDays(PRAZO_EM_DIAS);
-
     }
 
-    public void devolver(LocalDate data){
-        if(this.dataDevolucao != null) {
-            throw new ConflitoException("Empréstimo ja devolvido");
+    public void devolver(LocalDate data) {
+        if (this.dataDevolucao != null) {
+            throw new ConflitoException("Empréstimo já devolvido");
         }
         this.dataDevolucao = data;
-
     }
 
-    public boolean estaAtrasadoEm(LocalDate data){
+    public boolean estaAtrasadoEm(LocalDate data) {
         return this.dataDevolucao == null && this.dataPrevistaDevolucao.isBefore(data);
     }
 
-    public boolean isAtrasado(){
+    public boolean isAtrasado() {
         return estaAtrasadoEm(LocalDate.now());
     }
 
@@ -60,12 +59,12 @@ public class Emprestimo {
         return id;
     }
 
-    public Long getEquipamentoId() {
-        return equipamentoId;
+    public Equipamento getEquipamento() {
+        return equipamento;
     }
 
-    public Long getColaboradorId() {
-        return colaboradorId;
+    public Colaborador getColaborador() {
+        return colaborador;
     }
 
     public LocalDate getDataEmprestimo() {

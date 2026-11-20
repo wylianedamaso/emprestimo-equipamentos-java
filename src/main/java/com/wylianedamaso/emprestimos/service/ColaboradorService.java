@@ -4,9 +4,7 @@ import com.wylianedamaso.emprestimos.exception.ConflitoException;
 import com.wylianedamaso.emprestimos.exception.NaoEncontradoException;
 import com.wylianedamaso.emprestimos.model.Colaborador;
 import com.wylianedamaso.emprestimos.repository.ColaboradorRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 

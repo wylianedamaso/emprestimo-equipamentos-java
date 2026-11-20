@@ -2,16 +2,14 @@ package com.wylianedamaso.emprestimos.service;
 
 import com.wylianedamaso.emprestimos.exception.ConflitoException;
 import com.wylianedamaso.emprestimos.exception.NaoEncontradoException;
+import com.wylianedamaso.emprestimos.model.Colaborador;
 import com.wylianedamaso.emprestimos.model.Emprestimo;
 import com.wylianedamaso.emprestimos.model.Equipamento;
 import com.wylianedamaso.emprestimos.repository.ColaboradorRepository;
 import com.wylianedamaso.emprestimos.repository.EmprestimoRepository;
 import com.wylianedamaso.emprestimos.repository.EquipamentoRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -51,9 +49,8 @@ public class EmprestimoService {
         Equipamento equipamento = equipamentoRepository.findById(equipamentoId)
                 .orElseThrow(() -> new NaoEncontradoException("Equipamento não encontrado"));
 
-        if (!colaboradorRepository.existsById(colaboradorId)) {
-            throw new NaoEncontradoException("Colaborador não encontrado");
-        }
+        Colaborador colaborador = colaboradorRepository.findById(colaboradorId)
+                .orElseThrow(() -> new NaoEncontradoException("Colaborador não encontrado"));
 
         if (repository.existsByColaboradorIdAndDataDevolucaoIsNullAndDataPrevistaDevolucaoBefore(
                 colaboradorId, LocalDate.now())) {
@@ -63,7 +60,7 @@ public class EmprestimoService {
         equipamento.emprestar();
         equipamentoRepository.save(equipamento);
 
-        Emprestimo emprestimo = new Emprestimo(equipamentoId, colaboradorId, LocalDate.now());
+        Emprestimo emprestimo = new Emprestimo(equipamento, colaborador, LocalDate.now());
         return repository.save(emprestimo);
     }
 
@@ -72,8 +69,7 @@ public class EmprestimoService {
         Emprestimo emprestimo = buscar(id);
         emprestimo.devolver(LocalDate.now());
 
-        Equipamento equipamento = equipamentoRepository.findById(emprestimo.getEquipamentoId())
-                .orElseThrow(() -> new NaoEncontradoException("Equipamento não encontrado"));
+        Equipamento equipamento = emprestimo.getEquipamento();
         equipamento.devolver();
         equipamentoRepository.save(equipamento);
 

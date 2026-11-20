@@ -6,9 +6,7 @@ import com.wylianedamaso.emprestimos.model.Equipamento;
 import com.wylianedamaso.emprestimos.model.TipoEquipamento;
 import com.wylianedamaso.emprestimos.repository.EmprestimoRepository;
 import com.wylianedamaso.emprestimos.repository.EquipamentoRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
