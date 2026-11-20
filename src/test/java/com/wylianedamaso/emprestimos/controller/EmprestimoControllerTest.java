@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,7 @@ class EmprestimoControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void deveEmprestarEDevolverEquipamentoRetornando200() throws Exception {
         Equipamento equipamento = salvarEquipamento("TEST-EMP-01");
         Colaborador colaborador = salvarColaborador("ana.teste1@empresa.com");
@@ -68,6 +70,7 @@ class EmprestimoControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void deveRetornar409AoEmprestarEquipamentoJaEmprestado() throws Exception {
         Equipamento equipamento = salvarEquipamento("TEST-EMP-02");
         Colaborador colaborador = salvarColaborador("ana.teste2@empresa.com");
