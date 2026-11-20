@@ -1,5 +1,6 @@
 package com.wylianedamaso.emprestimos.model;
 
+import com.wylianedamaso.emprestimos.exception.ConflitoException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,7 +33,7 @@ public class Equipamento {
 
     public void emprestar(){
         if (!this.disponivel) {
-            throw new IllegalStateException("Equipamento indisponível");
+            throw new ConflitoException("Equipamento indisponível");
         }
         this.disponivel = false;
     }

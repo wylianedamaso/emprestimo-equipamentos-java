@@ -1,5 +1,7 @@
 package com.wylianedamaso.emprestimos.service;
 
+import com.wylianedamaso.emprestimos.exception.ConflitoException;
+import com.wylianedamaso.emprestimos.exception.NaoEncontradoException;
 import com.wylianedamaso.emprestimos.model.Equipamento;
 import com.wylianedamaso.emprestimos.model.TipoEquipamento;
 import com.wylianedamaso.emprestimos.repository.EmprestimoRepository;
@@ -36,12 +38,12 @@ public class EquipamentoService {
 
     public Equipamento buscar(Long id){
         return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipamento não encontrado"));
+                .orElseThrow(() -> new NaoEncontradoException("Equipamento não encontrado"));
     }
 
     public Equipamento cadastrar(Equipamento equipamento){
         if (repository.existsByPatrimonio(equipamento.getPatrimonio())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Patrimônio já cadastrado");
+            throw new ConflitoException("Patrimônio já cadastrado");
         }
         equipamento.setDisponivel(true);
         return repository.save(equipamento);
@@ -57,7 +59,7 @@ public class EquipamentoService {
     public void remover(Long id){
         Equipamento equipamento = buscar(id);
         if (emprestimoRepository.existsByEquipamentoId(id)) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Equipamento tem empréstimos registrados");
+            throw new ConflitoException("Equipamento tem empréstimos registrados");
         }
         repository.delete(equipamento);
     }

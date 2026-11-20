@@ -1,5 +1,6 @@
 package com.wylianedamaso.emprestimos.model;
 
+import com.wylianedamaso.emprestimos.exception.ConflitoException;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -41,7 +42,7 @@ public class Emprestimo {
 
     public void devolver(LocalDate data){
         if(this.dataDevolucao != null) {
-            throw new IllegalStateException("Empréstimo ja devolvido");
+            throw new ConflitoException("Empréstimo ja devolvido");
         }
         this.dataDevolucao = data;
 

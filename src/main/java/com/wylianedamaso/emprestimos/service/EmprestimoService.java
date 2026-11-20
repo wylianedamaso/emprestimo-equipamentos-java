@@ -1,5 +1,7 @@
 package com.wylianedamaso.emprestimos.service;
 
+import com.wylianedamaso.emprestimos.exception.ConflitoException;
+import com.wylianedamaso.emprestimos.exception.NaoEncontradoException;
 import com.wylianedamaso.emprestimos.model.Emprestimo;
 import com.wylianedamaso.emprestimos.model.Equipamento;
 import com.wylianedamaso.emprestimos.repository.ColaboradorRepository;
@@ -34,12 +36,12 @@ public class EmprestimoService {
     }
 
     public Emprestimo buscar(Long id){
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empréstimo não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Empréstimo não encontrado"));
     }
 
     public List<Emprestimo> listarDoColaborador(Long colaboradorId) {
         if (!colaboradorRepository.existsById(colaboradorId)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Colaborador não encontrado");
+            throw new NaoEncontradoException("Colaborador não encontrado");
         }
         return repository.findByColaboradorId(colaboradorId);
     }
@@ -47,15 +49,15 @@ public class EmprestimoService {
     @Transactional
     public Emprestimo emprestar(Long equipamentoId, Long colaboradorId) {
         Equipamento equipamento = equipamentoRepository.findById(equipamentoId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipamento não encontrado"));
+                .orElseThrow(() -> new NaoEncontradoException("Equipamento não encontrado"));
 
         if (!colaboradorRepository.existsById(colaboradorId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Colaborador não encontrado");
+            throw new NaoEncontradoException("Colaborador não encontrado");
         }
 
         if (repository.existsByColaboradorIdAndDataDevolucaoIsNullAndDataPrevistaDevolucaoBefore(
                 colaboradorId, LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Colaborador possui empréstimo atrasado");
+            throw new ConflitoException("Colaborador possui empréstimo atrasado");
         }
 
         equipamento.emprestar();
@@ -71,7 +73,7 @@ public class EmprestimoService {
         emprestimo.devolver(LocalDate.now());
 
         Equipamento equipamento = equipamentoRepository.findById(emprestimo.getEquipamentoId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipamento não encontrado"));
+                .orElseThrow(() -> new NaoEncontradoException("Equipamento não encontrado"));
         equipamento.devolver();
         equipamentoRepository.save(equipamento);
 

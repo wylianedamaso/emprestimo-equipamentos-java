@@ -1,5 +1,7 @@
 package com.wylianedamaso.emprestimos.service;
 
+import com.wylianedamaso.emprestimos.exception.ConflitoException;
+import com.wylianedamaso.emprestimos.exception.NaoEncontradoException;
 import com.wylianedamaso.emprestimos.model.Colaborador;
 import com.wylianedamaso.emprestimos.repository.ColaboradorRepository;
 import org.springframework.http.HttpStatus;
@@ -22,12 +24,12 @@ public class ColaboradorService {
     }
 
     public Colaborador buscar(Long id){
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Colaborador não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Colaborador não encontrado"));
     }
 
     public Colaborador cadastrar(Colaborador colaborador){
         if (repository.existsByEmail(colaborador.getEmail())) {
-            throw  new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
+            throw  new ConflitoException("E-mail já cadastrado");
         }
         return repository.save(colaborador);
     }
