@@ -93,8 +93,6 @@ cd emprestimo-equipamentos-java
 
 ## Deploy
 
-## Deploy
-
 - **Aplicação em produção (Render):** [https://emprestimo-equipamentos-java.onrender.com](https://emprestimo-equipamentos-java.onrender.com)
 - **Documentação Swagger:** [https://emprestimo-equipamentos-java.onrender.com/swagger-ui/index.html](https://emprestimo-equipamentos-java.onrender.com/swagger-ui/index.html)
 
